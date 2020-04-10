@@ -1,5 +1,5 @@
 #include <ros.h>
-#include <std_msgs/Char.h>
+#include <std_msgs/UInt8.h>
 #include <LiquidCrystal.h>
 
 ros::NodeHandle nh;
@@ -16,12 +16,12 @@ uint8_t pseudot[8] = {
   B11111,
 };
 
-void messageCb( const std_msgs::Chardd& msg) {
+void messageCb( const std_msgs::UInt8& msg) {
   moveCursor(msg.data);
 }
 
 LiquidCrystal lcd(4, 5, 10, 11, 12, 13);
-ros::Subscriber<std_msgs::Char> sub("keys", &messageCb);
+ros::Subscriber<std_msgs::UInt8> sub("keys", &messageCb);
 
 void setup()
 { 
@@ -40,13 +40,10 @@ void loop()
   delay(1);
 }
 
-void moveCursor(char key){
+void moveCursor(uint8_t key){
   if (key == 119) {
-    if (y == 1) y =
-  }
-  if (key != 209) {
-    if (x == 15) x = 0;
-    else x++;
+    if (y == 1) y = 0;
+    else y++;
   }
   lcd.clear();
   lcd.setCursor(x, y);
